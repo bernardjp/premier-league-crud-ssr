@@ -117,8 +117,8 @@ function deleteClub(req, res) {
   const { deleteID, deleteTLA } = req.body;
   console.log(`DELETE handler. ID: ${deleteID} / TLA: ${deleteTLA}`);
 
-  db.deleteFile(dataPath.club, deleteTLA);
-  db.deleteEntry(dataPath.list, deleteID);
+  db.deleteClubFile(dataPath.club, deleteTLA, res);
+  db.deleteEntry(dataPath.list, deleteID, res);
 
   res.end();
 }
@@ -142,19 +142,19 @@ function createClub(req, res) {
 
       if (keyDataValidation(clubListData, mappedData)) {
         db.createClubFile(dataPath.club, mappedData);
-        db.createEntry(dataPath.list, mappedData);
+        db.createEntry(dataPath.list, mappedData, res);
 
         res.redirect(303, `/clubs/${mappedData.tla}`);
+      } else {
+        res.status(400).render('clubEditPage', {
+          layout: 'index',
+          data: {
+            clubInfo: {},
+            message: { text: 'TLA already in use. Try another combination.', type: 'error' },
+            title: 'Error uploading data'
+          }
+        });
       }
-
-      res.status(400).render('clubEditPage', {
-        layout: 'index',
-        data: {
-          clubInfo: {},
-          message: { text: 'TLA already in use. Try another combination.', type: 'error' },
-          title: 'Error uploading data'
-        }
-      });
     }
   });
 }
@@ -177,8 +177,8 @@ function updateClub(req, res) {
       const originalTLA = req.params.clubTLA;
       const mappedData = formDataMapper(formData);
 
-      db.updateClubFile(dataPath.club, originalTLA, mappedData);
-      db.updateEntry(dataPath.list, mappedData.id, mappedData);
+      db.updateClubFile(dataPath.club, originalTLA, mappedData, res);
+      db.updateEntry(dataPath.list, mappedData.id, mappedData, res);
 
       res.redirect(303, `/clubs/${mappedData.tla}`);
     }
