@@ -2,7 +2,7 @@ const fs = require('fs');
 const upload = require('../storage/multer-config');
 const db = require('../storage/dbActions');
 const { clubListMapper, clubInfoMapper, formDataMapper } = require('../utils/mappers');
-const { keyDataValidation } = require('../utils/validations');
+const keyDataValidation = require('../utils/validations');
 
 const dataPath = { list: './data/equipos.json', club: './data/equipos/' };
 
