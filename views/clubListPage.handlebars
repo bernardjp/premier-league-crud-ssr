@@ -1,0 +1,55 @@
+<main class="page-container">
+  {{> modal}}
+  {{#if data.clubsList}}
+  <div class="table-container">
+    {{!-- <div class="title-container">
+    </div> --}}
+    <h1 class="title-name title-frame">PREMIER LEAGUE FOOTBALL CLUBS</h1>
+
+    <div class="table">
+      {{#each data.clubsList as |club|}}
+      <div class="entry">
+        <div class="name">
+          <img class="crest" src={{club.crestUrl}} alt="{{club.full_name}}-crest">
+          <div>
+            <a class="link" href="/clubs/{{club.tla}}">{{club.full_name}}</a>
+          </div>
+          {{!-- <span>{{club.tla}}</span> --}}
+        </div>
+        <div>
+          <div class="short-info">
+            <span class="label">ACRONYM</span>
+            <span>{{club.tla}}</span>
+          </div>
+          <div class="short-info">
+            <span class="label">WEBSITE</span>
+            <a class="website-link" href={{club.website}} target="_blank">{{club.website}}</a>
+          </div>
+        </div>
+        <div data-id={{club.id}} data-tla={{club.tla}} class="btn-container">
+          <button class="btn delete-btn">
+            <img src="/assets/icon_delete_02.svg" alt="delete-club">
+          </button>
+          <button class="btn edit-btn">
+            <img src="/assets/icon_edit_02.svg" alt="edit-club">
+          </button>
+        </div>
+      </div>
+      {{/each}}
+      <a class="entry new-entry" href="/clubs/create">
+        <img id="new-btn" src="/assets/add-icon.png" alt="new-club">
+        <span>ADD NEW CLUB</span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom-nav-container">
+    <a class="btn-bottom-nav" href="#header">Back to Top</a>
+  </div>
+  {{else}}
+  <div class="msg-container">
+    <h4 class="error">{{data.title}}</h4>
+    <p class="error">{{data.message.text}}</p>
+  </div>
+  {{/if}}
+</main>
+<script src="/app/app.js" type="module"></script>

@@ -1,0 +1,88 @@
+<main class="page-container">
+  {{#if data.clubInfo}}
+    <form id="club-form" method="POST" data-id="{{data.clubInfo.id}}" data-tla="{{data.clubInfo.tla}}" enctype="multipart/form-data">
+      
+      {{#if data.clubInfo.title}}
+      <h2 class="title-name title-frame">{{data.clubInfo.title}}</h2>
+      {{else}}
+      <h2 class="title-name title-frame">EDIT PAGE</h2>
+      {{/if}}
+
+      <div class="input-container">
+        <label for="club_crest">Club crest&nbsp;<span style="font-size: 0.75rem;">&nbsp;(JPG, JPEG, or PNG up to 1,5mb)</span></label>
+        <input type="file" id="club-crest" name="club_crest" data-url="{{data.clubInfo.crestUrl}}">
+      </div>
+      <div class="input-container">
+        <label for="club_full_name">Full name&nbsp;<span style="font-size: 0.75rem;">&nbsp;(required, no special characters allowed)</span></label>
+        <input type="text" id="club_full_name" name="full_name" placeholder="e.g. Arsenal FC" value="{{data.clubInfo.full_name}}" minlength="1" maxlength="50" required>
+      </div>
+      <div class="input-container">
+        <label for="club_short_name">Short name&nbsp;<span style="font-size: 0.75rem;">&nbsp;(required, no special characters allowed)</span></label>
+        <input type="text" id="club_short_name" name="short_name" placeholder="e.g. Arsenal" value="{{data.clubInfo.short_name}}" minlength="1" maxlength="50" required>
+      </div>
+      <div class="input-container">
+        <label for="acronym">Three Letter Acronym&nbsp;<span style="font-size: 0.75rem;">&nbsp;(required, only letters)</span></label>
+        <input type="text" id="acronym" name="tla" placeholder="e.g. ARS" value="{{data.clubInfo.tla}}" minlength="3" maxlength="3" required>
+      </div>
+      <div class="input-container">
+        <label for="club_colors">Colors</label>
+        <input type="text" id="club_colors" name="colors" placeholder="e.g. Red / White" value="{{data.clubInfo.colors}}" maxlength="50">
+      </div>
+      <div class="input-container">
+        <label for="club_foundation">Founded&nbsp;<span style="font-size: 0.75rem;">&nbsp;(year, up to current)</span></label>
+        <input type="number" id="club_foundation" name="founding_year" placeholder="e.g. 1886" value="{{data.clubInfo.founding_year}}">
+      </div>
+      <div class="input-container">
+        <label for="club_stadium">Stadium name</label>
+        <input type="text" id="club_stadium" name="venue_name" placeholder="e.g. Emirates Stadium" value="{{data.clubInfo.venue_name}}" maxlength="50">
+      </div>
+      <div class="input-container">
+        <label for="club_address">Venue address</label>
+        <input type="text" id="club_address" name="venue_address" placeholder="e.g. 75 Drayton Park London N5 1BU" value="{{data.clubInfo.venue_address}}" maxlength="50">
+      </div>
+      <div class="input-container">
+        <label for="club_phone">Venue phone</label>
+        <input type="text" id="club_phone" name="venue_phone" placeholder="e.g. +44 (020) 76195003" value="{{data.clubInfo.venue_phone}}" maxlength="40">
+      </div>
+      <div class="input-container">
+        <label for="club_email">Email</label>
+        <input type="email" id="club_email" name="email" placeholder="e.g. info@arsenal.co.uk" value="{{data.clubInfo.email}}" maxlength="254">
+      </div>
+      <div class="input-container">
+        <label for="club_website">Website&nbsp;<span style="font-size: 0.75rem;">&nbsp;(required)</span></label>
+        <input type="text" id="club_website" name="website" placeholder="e.g. http://www.arsenal.com" value="{{data.clubInfo.website}}" minlength="1" maxlength="2000" required>
+      </div>
+      
+      {{#if data.message}}
+      <div class="msg-container" style="display: flex;">
+      {{else}}
+      <div class="msg-container" style="display: none;">
+      {{/if}}
+        <h4 class="error">Error: uploading data failed</h4>
+        <span class="error error-msg">{{data.message.text}}</span>
+      </div>
+
+      <div class="submit-btn-container">
+        <button id="submit-btn" type="submit">SAVE CHANGES</button>
+        <p style="align-self: center; margin: 0; padding-top: 1rem;">Last Update: {{data.clubInfo.last_update}}</p>
+      </div>
+
+    </form>
+
+    <div class="bottom-nav-container">
+      {{#if data.clubInfo.tla}}
+      <a class="btn-bottom-nav" href="/clubs/{{data.clubInfo.tla}}">BACK TO CLUB</a>
+      {{else}}
+      <a class="btn-bottom-nav" href="/clubs">BACK TO LIST</a>
+      {{/if}}
+    </div>
+    
+  {{else}}
+    <h1 class="error">{{data.title}}</h1>
+    <p class="error">{{data.message.text}}</p>
+    <div class="bottom-nav-container">
+      <a class="btn-bottom-nav" href="/clubs">BACK TO LIST</a>
+    </div>
+  {{/if}}
+</main>
+<script src="/app/editPage.js" type="module"></script>

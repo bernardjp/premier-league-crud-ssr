@@ -1,0 +1,124 @@
+<main class="page-container">
+  {{> modal}}
+  {{#if data.clubInfo}}
+
+    {{#if data.message}}
+    <span class="{{data.message.type}}-msg">{{data.message.text}}</span>
+    {{/if}}
+  
+    <section id="club-info-container">
+      <div class="club-top-info">
+        <div class="title-container">
+          <h1 class="title-name">{{data.clubInfo.short_name}}</h1>
+          <div data-id="{{data.clubInfo.id}}" data-tla="{{data.clubInfo.tla}}" class="btn-container">
+            <button class="btn delete-btn">
+              <img src="/assets/icon_delete_02.svg" alt="delete">
+            </button>
+            <button class="btn edit-btn">
+              <img src="/assets/icon_edit_02.svg" alt="edit">
+            </button>
+            <p>Last Update: {{data.clubInfo.last_update}}</p>
+          </div>
+        </div>
+        <div>
+          <div class="club-info-entry">
+            <span class="club-info-label">FULL NAME</span>
+            <span class="club-info-data club-name">{{data.clubInfo.full_name}}</span>
+          </div>
+          <hr>
+          <div class="club-info-entry">
+            <span class="club-info-label">TLA</span>
+            <span class="club-info-data">{{data.clubInfo.tla}}</span>
+          </div>
+          <hr>
+          <div class="club-info-entry">
+            <span class="club-info-label">COLORS</span>
+            <span class="club-info-data">{{data.clubInfo.colors}}</span>
+          </div>
+          <hr>
+          <div class="club-info-entry">
+            <span class="club-info-label">FOUNDED</span>
+            <span class="club-info-data">{{data.clubInfo.founding_year}}</span>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="club-info-entry">
+        <span class="club-info-label">VENUE</span>
+        <span class="club-info-data">{{data.clubInfo.venue_name}}</span>
+      </div>
+      <hr>
+      <div class="club-info-entry">
+        <span class="club-info-label">ADDRESS</span>
+        <a class="club-info-data" href="{{data.clubInfo.gmapsUrl}}" target="_blank">{{data.clubInfo.venue_address}}</a>
+      </div>
+      <hr>
+      <div class="club-info-entry">
+        <span class="club-info-label">PHONE</span>
+        <span class="club-info-data">{{data.clubInfo.venue_phone}}</span>
+      </div>
+      <hr>
+      <div class="club-info-entry">
+        <span class="club-info-label">EMAIL</span>
+        {{#if data.clubInfo.email}}
+        <span class="club-info-data">{{data.clubInfo.email}}</span>
+        {{else}}
+        <span class="club-info-data">Email not provided</span>
+        {{/if}}
+      </div>
+      <hr>
+      <div class="club-info-entry">
+        <span class="club-info-label">WEBSITE</span>
+        <a class="club-info-data" href="{{data.clubInfo.website}}" target="_blank">{{data.clubInfo.website}}</a>
+      </div>
+    </section>
+
+    <section id="squad-container">
+      <h2 class="title-name title-frame">SQUAD LINEUP</h2>
+
+      {{#each data.clubInfo.squad as |player|}}
+      <div id="{{player.id}}" class="player-card">
+        <h3 class="player-name">{{player.full_name}}</h3>
+        <hr>
+        <div class="player-info">
+          <span class="player-label">POSITION</span>
+          <span class="player-data">{{player.position}}</span>
+        </div>
+        <div class="player-info">
+          <span class="player-label">BIRTH</span>
+          <span class="player-data">{{player.date_of_birth}}, {{player.country_of_birth}}</span>
+        </div>
+        <div class="player-info">
+          <span class="player-label">NATIONALITY</span>
+          <span class="player-data">{{player.nationality}}</span>
+        </div>
+        <div class="player-info">
+          <span class="player-label">NUMBER</span>
+          <span class="player-data">{{player.number}}</span>
+        </div>
+        <div class="player-info">
+          <span class="player-label">ROLE</span>
+          <span class="player-data" style="text-transform: capitalize;">{{player.role}}</span>
+        </div>
+      </div>
+      {{/each}}
+
+      <a class="new-player" href="/players/create">
+        <img src="/assets/add-icon.png" alt="new-club">
+        <span>ADD NEW PLAYER</span>
+      </a>
+
+    </section>
+
+  {{else}}
+    <div class="msg-container">
+      <h4 class="error">{{data.title}}</h4>
+      <p class="error">{{data.message.text}}</p>
+    </div>
+  {{/if}}
+  <div class="bottom-nav-container">
+    <a class="btn-bottom-nav" href="#header" >Back to top</a>
+    <a class="btn-bottom-nav" href="/clubs" >Back to list</a>
+  </div>
+</main>
+<script src="/app/app.js"></script>
